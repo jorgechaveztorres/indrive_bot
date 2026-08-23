@@ -36,14 +36,14 @@ jobs:
         pip install --upgrade pip
         pip install --upgrade cython buildozer
 
-    - name: Aceptar licencias de Android SDK automáticamente
+    - name: Pre-aceptar licencias de Android SDK oficialmente
       run: |
-        mkdir -p ~/.android
-        echo "### License accept" > ~/.android/repositories.cfg
+        mkdir -p /home/runner/.buildozer/android/platform/android-sdk/licenses
+        echo -e "\n8d3184d2a6327b403e913ec10c3cb941e7a5c5f" > /home/runner/.buildozer/android/platform/android-sdk/licenses/android-sdk-license
+        echo -e "\n24333f8a43b682421c570f5e1f0e8f3ef2b77a0a" >> /home/runner/.buildozer/android/platform/android-sdk/licenses/android-sdk-license
+        echo -e "\nd56f5187479451eabf01fb78af6dfcb131a648ab" > /home/runner/.buildozer/android/platform/android-sdk/licenses/android-sdk-preview-license
 
     - name: Compilar APK con Buildozer
-      env:
-        BUILDER_ACCEPT_LICENSE: "1"
       run: |
         buildozer -v android debug
 
