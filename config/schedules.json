@@ -1,0 +1,13 @@
+{
+  "rules": {
+    "except_day": "Saturday",
+    "max_pickup_distance_km": 2.0
+  },
+  "time_slots": [
+    {"name": "matutino", "start": "06:00", "end": "11:30", "min_rate_per_km": 1.30},
+    {"name": "almuerzo", "start": "11:30", "end": "14:30", "min_rate_per_km": 1.50},
+    {"name": "vespertino", "start": "14:30", "end": "18:00", "min_rate_per_km": 1.30},
+    {"name": "nocturno", "start": "18:00", "end": "23:00", "min_rate_per_km": 1.50},
+    {"name": "madrugada", "start": "23:00", "end": "06:00", "min_rate_per_km": 2.00}
+  ]
+}

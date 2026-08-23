@@ -1,0 +1,19 @@
+{
+  "complex_zones": [
+    {
+      "name": "Florencia de Mora",
+      "penalty_multiplier": 1.2,
+      "description": "Zona de pendientes y terreno complejo"
+    },
+    {
+      "name": "El Milagro",
+      "penalty_multiplier": 1.25,
+      "description": "Zona norte de acceso pesado"
+    },
+    {
+      "name": "Alto Trujillo Parte Alta",
+      "penalty_multiplier": 1.3,
+      "description": "Zona de subida y pistas difíciles"
+    }
+  ]
+}
