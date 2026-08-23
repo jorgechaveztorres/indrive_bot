@@ -13,3 +13,7 @@ android.permissions = INTERNET, WAKE_LOCK, SYSTEM_ALERT_WINDOW
 [buildozer]
 log_level = 2
 warn_on_root = 1
+android.sdk = 31
+android.min_api = 21
+android.ndk = 25b
+android.accept_sdk_license = True
