@@ -42,7 +42,7 @@ jobs:
         buildozer -v android debug
 
     - name: Guardar APK como Artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: indrive-bot-apk
         path: bin/*.apk
