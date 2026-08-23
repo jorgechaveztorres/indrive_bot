@@ -10,16 +10,16 @@ class InDriveListener:
         self.engine = InDriveEngine()
         self.anti_ban = AntiBanSimulator()
         self.counter_manager = CounterOfferManager()
-        # Nombre del paquete de inDrive
         self.indrive_package = "sinaddons.android.taxi"
 
     def bring_app_to_foreground(self):
         """
-        Lanza la aplicacion al primer plano usando el gestor de paquetes nativo de Android.
+        Lanza la aplicacion usando el intent de inicio por categoria nativo de Android.
         """
         try:
-            # Usar monkey o el comando de intencion generico para abrir el paquete directamente
-            subprocess.run(["am", "start", "--package", self.indrive_package, "-a", "android.intent.action.MAIN", "-c", "android.intent.category.LAUNCHER"], check=False)
+            # Comando limpio compatible con todos los Android para traer la app al frente
+            cmd = f"am start -n {self.indrive_package}/.MainActivity 2>/dev/null || am start -d indrive://app"
+            subprocess.run(["sh", "-c", cmd], check=False)
             print("[LISTENER] App inDrive traída al primer plano con éxito.")
         except Exception as e:
             print(f"[LISTENER] Error al intentar abrir inDrive: {e}")

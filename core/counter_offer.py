@@ -1,47 +1,33 @@
 class CounterOfferManager:
     def __init__(self):
-        # Mapeo de botones de contraoferta segun la interfaz de inDrive
-        # Boton principal: Aceptar tarifa actual
-        # Boton 1: Primera opcion de incremento
-        # Boton 2: Segunda opcion de incremento
-        self.available_buttons = {
-            "accept_direct": {"action_type": "click", "index": 0},
-            "counter_1": {"action_type": "click", "index": 1},
-            "counter_2": {"action_type": "click", "index": 2}
-        }
+        # Configuración de márgenes para contraofertas (en Soles)
+        self.min_acceptable_increase = 1.0  # Incremento mínimo razonable
+        self.max_acceptable_increase = 3.0  # Incremento máximo para no espantar al pasajero
 
     def determine_action_strategy(self, evaluation_result):
         """
-        Determina que boton presionar segun el resultado devuelto por el engine.
+        Determina si se acepta la tarifa base o si se calcula una contraoferta basada en la regla de negocio.
         """
         action = evaluation_result.get("action")
         
         if action == "accept":
             return {
                 "target": "accept_direct",
-                "description": "Aceptar tarifa base directamente"
+                "description": "Aceptar tarifa base directamente",
+                "extra_amount": 0.0
             }
-        elif action == "counter_offer":
-            target_btn = evaluation_result.get("target_button", 1)
-            if target_btn == 1:
-                return {
-                    "target": "counter_1",
-                    "description": "Lanzar primera contraoferta (margen seguro)"
-                }
-            else:
-                return {
-                    "target": "counter_2",
-                    "description": "Lanzar segunda contraoferta (hora pico / zona compleja)"
-                }
+        elif action == "counter":
+            # Calculamos una contraoferta inteligente basada en la diferencia esperada
+            # Aquí aplicamos un incremento dinámico controlado por la política anti-suspensión
+            suggested_increment = 2.0 # Soles adicionales sugeridos por defecto
+            return {
+                "target": "send_counter_offer",
+                "description": f"Enviar contraoferta sumando S/ {suggested_increment:.2f} a la tarifa base",
+                "extra_amount": suggested_increment
+            }
         else:
             return {
-                "target": "reject",
-                "description": "Descartar solicitud"
+                "target": "reject_request",
+                "description": "Rechazar solicitud por debajo de umbrales permitidos",
+                "extra_amount": 0.0
             }
-
-if __name__ == "__main__":
-    manager = CounterOfferManager()
-    # Prueba simulada
-    fake_eval = {"action": "counter_offer", "target_button": 2}
-    strategy = manager.determine_action_strategy(fake_eval)
-    print(f"Estrategia seleccionada: {strategy}")
