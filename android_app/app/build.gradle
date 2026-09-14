@@ -1,4 +1,7 @@
-plugins { id 'com.android.application' }
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android' version '1.8.22'
+}
 android {
     namespace 'com.shocos.asistente'
     compileSdk 34
@@ -6,17 +9,12 @@ android {
         applicationId "com.shocos.asistente"
         minSdk 26
         targetSdk 34
-        versionCode 20
-        versionName "20-release-limpio-final"
+        versionCode 21
+        versionName "21-no-crash-final"
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
-    }
-    packagingOptions {
-        resources {
-            excludes += ['META-INF/DEPENDENCIES','META-INF/LICENSE','META-INF/LICENSE.txt','META-INF/NOTICE','META-INF/NOTICE.txt']
-        }
     }
     signingConfigs {
         release {
@@ -33,4 +31,6 @@ android {
         }
     }
 }
-dependencies {}
+dependencies {
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.8.22'
+}

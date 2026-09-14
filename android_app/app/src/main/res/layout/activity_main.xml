@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:orientation="vertical" android:padding="16dp">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center">
     <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:text="Asistente Trujillo - Overlay Verde" android:textSize="16sp"/>
-    <Button android:id="@+id/btnPermiso" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Activar Permisos"/>
+        android:text="Asistente Trujillo v21 - MODO ESTUDIO\n\nEste asistente solo:\n1. Lee solicitudes\n2. Elige si cumple requisitos\n3. Abre detalle\n4. Parpadea VERDE\n\nResto es MANUAL"
+        android:textSize="14sp"/>
+    <Button android:id="@+id/btnPermiso" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Activar Permisos de Accesibilidad"/>
 </LinearLayout>
