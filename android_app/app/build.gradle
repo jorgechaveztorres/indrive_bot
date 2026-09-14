@@ -1,0 +1,13 @@
+plugins { id 'com.android.application' }
+android {
+    namespace 'com.shocos.asistente'
+    compileSdk 34
+    defaultConfig {
+        applicationId "com.shocos.asistente"
+        minSdk 26
+        targetSdk 34
+        versionCode 1
+        versionName "1.0-estudio"
+    }
+}
+dependencies {}

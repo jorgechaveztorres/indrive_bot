@@ -1,4 +1,4 @@
-name: Compilar APK InDrive Bot
+name: Compilar APK Asistente Trujillo - Overlay Verde
 
 on:
   push:
@@ -8,40 +8,26 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Copiar repositorio
-      uses: actions/checkout@v3
-
-    - name: Configurar Python
-      uses: actions/setup-python@v4
+    - uses: actions/checkout@v4
+    
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
       with:
-        python-version: '3.10'
+        java-version: '17'
+        distribution: 'temurin'
+        
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
 
-    - name: Instalar dependencias del sistema y Buildozer
+    - name: Compilar APK Overlay Verde
       run: |
-        sudo apt-get update
-        sudo apt-get install -y \
-            git \
-            zip \
-            unzip \
-            autoconf \
-            libtool \
-            pkg-config \
-            zlib1g-dev \
-            libncurses5-dev \
-            libncursesw5-dev \
-            libffi-dev \
-            libssl-dev
-        pip install --upgrade pip
-        pip install --upgrade cython buildozer
+        cd android_app
+        chmod +x gradlew 2>/dev/null || echo "sin gradlew, usando gradle"
+        gradle assembleDebug || ./gradlew assembleDebug
 
-    - name: Compilar APK con Buildozer
-      run: |
-        buildozer -v android debug
-
-    - name: Guardar APK como Artifact
+    - name: Guardar APK
       uses: actions/upload-artifact@v4
       with:
-        name: indrive-bot-apk
-        path: bin/*.apk
+        name: asistente-trujillo-overlay-verde
+        path: android_app/app/build/outputs/apk/debug/*.apk
