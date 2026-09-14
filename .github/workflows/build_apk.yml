@@ -1,4 +1,4 @@
-name: Compilar APK Asistente Trujillo - Overlay Verde
+name: Compilar APK Release Trujillo
 on: [push, workflow_dispatch]
 jobs:
   build:
@@ -13,11 +13,20 @@ jobs:
       with: { gradle-version: 8.4 }
     - name: Setup Android SDK
       uses: android-actions/setup-android@v3
-    - name: Compilar APK REAL
+    - name: Crear keystore debug para release
+      run: |
+        cd android_app/app
+        keytool -genkey -v -keystore debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Shocos, OU=Shop, O=Shop, L=Trujillo, S=La Libertad, C=PE" || echo "keystore ya existe"
+    - name: Compilar APK RELEASE
       run: |
         cd android_app
-        gradle assembleDebug --stacktrace
-        ls -lh app/build/outputs/apk/debug/
-    - name: Guardar APK
+        gradle assembleRelease --stacktrace
+        ls -lh app/build/outputs/apk/release/
+        ls -lh app/build/outputs/apk/debug/ || true
+    - name: Guardar APK Release
       uses: actions/upload-artifact@v4
-      with: { name: asistente-trujillo-overlay-verde, path: android_app/app/build/outputs/apk/debug/*.apk }
+      with:
+        name: asistente-trujillo-overlay-verde-RELEASE
+        path: |
+          android_app/app/build/outputs/apk/release/*.apk
+          android_app/app/build/outputs/apk/debug/*.apk
