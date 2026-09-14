@@ -1,6 +1,4 @@
-plugins {
-    id 'com.android.application'
-}
+plugins { id 'com.android.application' }
 android {
     namespace 'com.shocos.asistente'
     compileSdk 34
@@ -8,11 +6,14 @@ android {
         applicationId "com.shocos.asistente"
         minSdk 26
         targetSdk 34
-        versionCode 12
-        versionName "12-overlay-verde"
+        versionCode 14
+        versionName "14-overlay-verde-real"
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
+}
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.6.1'
 }
