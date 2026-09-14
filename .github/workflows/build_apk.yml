@@ -5,17 +5,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - uses: actions/setup-java@v4
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
       with:
         java-version: '17'
         distribution: 'temurin'
-    - uses: android-actions/setup-android@v3
-    - name: Compilar APK
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+    - name: Compilar APK sin wrapper
       run: |
         cd android_app
-        chmod +x gradlew
-        ./gradlew assembleDebug --stacktrace
-    - uses: actions/upload-artifact@v4
+        gradle assembleDebug --stacktrace
+    - name: Guardar APK
+      uses: actions/upload-artifact@v4
       with:
         name: asistente-trujillo-overlay-verde
         path: android_app/app/build/outputs/apk/debug/*.apk
